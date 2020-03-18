@@ -137,5 +137,18 @@ iconfont(好看的图标)
   
    ### ./components/complexSecondPage(第三个页面)
   
-  
-  
+  ```
+  <template>
+  <div class="complexSecondPage">
+    <navigation :cityData="oneProvince" @beActive="beActive"></navigation>
+    <p><el-radio v-model="radio" label="1">按时间</el-radio>
+      <el-radio v-model="radio" label="2">按热度</el-radio></p>
+      <timeline :cards="city.cards">
+       
+      </timeline>
+    </div>
+  </template>
+  ```
+  可想而知,此页面大多是引入自定义组件。
+  其中:cityData表示向navigation子组件传了name是cityData的属性，同时:cityData是v-bind:cityData的意思，后面写的是变量
+  ### ./components
