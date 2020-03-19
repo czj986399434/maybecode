@@ -1,6 +1,6 @@
 前言：
 ===
-此为编写此前端全思路.
+此为编写此前端稍微有用的思路.
 
 安装：
 ---
@@ -187,3 +187,53 @@ iconfont(好看的图标)
   
   ### ./components/timeline
   
+学会用防抖控制scroll监听器。
+```
+debounce(fn, wait) {    
+    var timeout = null;    
+    return function() {        
+        if(timeout !== null)   clearTimeout(timeout);        
+        timeout = setTimeout(fn, wait);    
+    }
+   
+```
+然后在created钩子函数里创建scroll事件监听
+```
+window.addEventListener('scroll',this.debounce(this.handleScroll,500),true)
+```
+
+其次
+```
+async getComment(e){
+  var cardBody=e.target;
+  let index=e.target.getAttribute("data-index")
+  var cardId=this.cards[index].cardId;
+  await axios.get(`${this.$store.state.nodeAdd}/selectComments?cardId=${cardId}`)
+  .then(data=>{
+    this.cards[index].comments=data.data
+  })
+  let divList=cardBody.previousElementSibling.childNodes;
+  for(let i=0;i<divList.length;i++){
+    divList[i].style.transform=`translate(${i*300}px,0px)`;
+    divList[i].style.color=`rgb${this.rgb()}`
+    divList[i].style.animationDelay=` ${i*2}s `
+    if(i==divList.length-1){
+      cardBody.classList.toggle("translucent",true);
+    }
+  }
+```
+这里是利用 async 申明这是异步函数，这样就能在函数里面使用await，当然，async 申明的另一意义在于返回出去的是一个promise对象
+await用于等待这个后面的异步函数执行完成。
+```
+li{
+  position: relative;
+  list-style: none;
+  height: 250px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  --left: 50%;
+}
+```
+用于flex布局
