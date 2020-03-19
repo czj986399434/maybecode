@@ -148,7 +148,42 @@ iconfont(好看的图标)
       </timeline>
     </div>
   </template>
+  
+  
+  import navigation from './navigation'
+    import mycard from "./mycard"
+    import timeline from './timeline'
+
+ export default {
+      name: 'complexSecondPage',
+      components: {
+       navigation,
+       mycard,
+       timeline
+     },
+     }
   ```
   可想而知,此页面大多是引入自定义组件。
-  其中:cityData表示向navigation子组件传了name是cityData的属性，同时:cityData是v-bind:cityData的意思，后面写的是变量
-  ### ./components
+  其中:cityData表示向navigation子组件传了name是cityData的属性，同时:cityData是v-bind:cityData的意思，后面写的是变量。
+  其次 @beActive="beActive"是子组件传给父组件值。子组件通过this.$emit("beActive",...)来传值，父组件用@beActive="func"来接收
+  这里也需要注册引入自定义组件，import引入，在components里注册
+  ### ./components/navigation
+  用于侧方导航栏
+  主要是用动画增添了趣味性，
+  transition:all 1s ;
+  利用transition进行平缓过渡，实现动画效果(因为动画效果简单，所以用transition，如果复杂动画，需要使用keyframes)
+  同时
+   ```
+  var part =document.querySelectorAll(".part");
+        part.forEach(function(val,index){
+          if(val.classList.contains("rotateX")){
+            val.classList.remove("rotateX")
+            val.classList.toggle("opacity",false)
+          }
+         
+  ```
+   利用val.classList.toggle("opacity",false)用来移出dom元素的opacity类(当第二个参数是true，如果原classList包含opacity，则不操作，若原classList不包含opacity，则添加)
+   当然，这里代码太杂碎了，也可以利用vue动态绑定class 
+  
+  ### ./components/timeline
+  
