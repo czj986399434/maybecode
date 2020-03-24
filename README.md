@@ -237,3 +237,36 @@ li{
 }
 ```
 用于flex布局
+### ./components/showPic
+3D相册的编写
+```
+defaultAni(){
+ let img = document.querySelectorAll('img');
+ let container =document.querySelector(".container")
+ for (let i = 0; i < img.length; i++) {
+        // 图片旋转分散 36°
+        img[i].classList.toggle("leftTop",true)
+        img[i].classList.toggle("relative",false)
+        img[i].style.transform = 'rotateY(' + i * 360 / img.length + 'deg) translateZ(300px)';
+        img[i].style.transition = 'transform 1s ' + (img.length - i) * 0.1 + 's';
+      }
+      container.classList.toggle("mymoveAni",true)
+    }
+ ```
+ transition就是设置过渡效果
+ 
+ 下面设置相册自动旋转
+ ```
+ .mymoveAni{
+ animation: mymove 6s infinite linear;
+}
+  @keyframes mymove{
+   from{
+     transform:rotateY(360deg);
+   }
+   to{
+    transform:rotateY(0deg);
+  }
+}
+```
+ 
